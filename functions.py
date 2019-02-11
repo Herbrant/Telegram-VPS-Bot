@@ -41,6 +41,27 @@ def print_memory(nt):
         
     return memory
 
+def disk_info():
+    templ = "%-17s %8s %8s %8s %5s"
+    disk = templ % ("Device", "Total", "Used", "Free", "Use\n")
+
+    for part in psutil.disk_partitions(all= False):
+        if os.name == 'nt':
+            if 'cdrom' in part.opts or part.fstype == '':
+                continue
+        usage = psutil.disk_usage(part.mountpoint)
+
+    
+        disk += templ % (
+                part.device,
+                bytes2human(usage.total),
+                bytes2human(usage.used),
+                bytes2human(usage.free),
+                int(usage.percent)) + "%\n"
+        disk = str(disk).replace("/dev", "")
+    
+    return disk
+
 def info_cmd(bot, update):
     info = "*----VPS INFO----*\n\n"
     
@@ -55,6 +76,9 @@ def info_cmd(bot, update):
     #RAM
     ram = '*--RAM--*\n' + print_memory(psutil.virtual_memory()) + "\n"
     #SWAP
-    swap = '*--SWAP--*\n' + print_memory(psutil.swap_memory())
-    message = info + cpu + ram + swap
+    swap = '*--SWAP--*\n' + print_memory(psutil.swap_memory()) + "\n"
+
+    #DISK
+    disk = '*--DISK--*\n' + str(disk_info()) + "\n"
+    message = info + cpu + ram + swap + disk
     bot.sendMessage(chat_id = update.message.chat_id, text = message,  parse_mode=telegram.ParseMode.MARKDOWN)
