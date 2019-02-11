@@ -9,6 +9,12 @@ def main():
 
 	dp.add_handler(CommandHandler('info', info_cmd))
 
+	#JobQueue
+	j = updater.job_queue
+
+	j.run_repeating(alert_cmd, interval= 30, first= 0)
+	
+
 	updater.start_polling()
 	updater.idle()
 

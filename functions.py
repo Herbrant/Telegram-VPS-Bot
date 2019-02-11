@@ -16,6 +16,11 @@ tokenconf = tokenconf.replace("\n", "")
 # Token of your telegram bot that you created from @BotFather, write it on token.conf
 TOKEN = tokenconf
 
+#Admin chatid
+adminconf = open('config/admin.conf', 'r').read()
+adminconf = adminconf.replace("\n", "")
+ADMIN = adminconf
+
 def bytes2human(n):
     symbols = ('K', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y')
     prefix = {}
@@ -82,3 +87,15 @@ def info_cmd(bot, update):
     disk = '*--DISK--*\n' + str(disk_info()) + "\n"
     message = info + cpu + ram + swap + disk
     bot.sendMessage(chat_id = update.message.chat_id, text = message,  parse_mode=telegram.ParseMode.MARKDOWN)
+
+
+def alert_cmd(bot, update):
+    cpuval = psutil.cpu_percent()
+    if cpuval > 80.0:
+        message = "*ALERT CPU USAGE!*\n" + "Percent:\t" + str(cpuval) + "%"
+        bot.sendMessage(chat_id = ADMIN, text = message, parse_mode=telegram.ParseMode.MARKDOWN)
+    
+    ramval = psutil.virtual_memory()[2]
+    if ramval > 65.0:
+        message = "*ALERT RAM USAGE!*\n" + "Percent:\t" + str(ramval) + "%"
+        bot.sendMessage(chat_id = ADMIN, text = message, parse_mode=telegram.ParseMode.MARKDOWN)
