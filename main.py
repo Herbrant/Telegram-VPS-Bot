@@ -7,7 +7,7 @@ def main():
 	updater = Updater(TOKEN, request_kwargs={'read_timeout': 20, 'connect_timeout': 20})
 	dp = updater.dispatcher
 
-	dp.add_handler(CommandHandler('cpu', cpu_cmd))
+	dp.add_handler(CommandHandler('info', info_cmd))
 
 	updater.start_polling()
 	updater.idle()
