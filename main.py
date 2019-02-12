@@ -8,7 +8,8 @@ def main():
 	dp = updater.dispatcher
 
 	dp.add_handler(CommandHandler('info', info_cmd))
-
+	dp.add_handler(CommandHandler('reboot', reboot_cmd))
+	
 	#JobQueue
 	j = updater.job_queue
 

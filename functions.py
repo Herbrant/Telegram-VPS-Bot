@@ -51,23 +51,6 @@ def print_memory(nt):
         
     return memory
 
-# def disk_info():
-#     templ = "%-17s %8s %8s %8s %5s"
-#     disk = templ % ("Device", "Total", "Used", "Free", "Use\n")
-
-#     for part in psutil.disk_partitions(all= False):
-#         usage = psutil.disk_usage(part.mountpoint)
-
-#         disk += templ % (
-#                 part.device,
-#                 bytes2human(usage.total),
-#                 bytes2human(usage.used),
-#                 bytes2human(usage.free),
-#                 int(usage.percent)) + "%\n"
-#         disk = str(disk).replace("/dev", "")
-    
-#     return disk
-
 def info_cmd(bot, update):
     chat_id = update.message.chat_id
     if chat_id == ADMIN or chat_id == ADMINGROUP:
@@ -86,8 +69,6 @@ def info_cmd(bot, update):
         #SWAP
         swap = '*--SWAP--*\n' + print_memory(psutil.swap_memory()) + "\n"
 
-        #DISK
-        #disk = '*--DISK--*\n' + str(disk_info()) + "\n"
         message = info + cpu + ram + swap
         bot.sendMessage(chat_id = chat_id, text = message,  parse_mode=telegram.ParseMode.MARKDOWN)
     else:
@@ -107,3 +88,11 @@ def alert_cmd(bot, update):
         message = "*ALERT RAM USAGE!*\n" + "Percent:\t" + str(ramval) + "%"
         bot.sendMessage(chat_id = ADMIN, text = message, parse_mode=telegram.ParseMode.MARKDOWN)
         bot.sendMessage(chat_id = ADMINGROUP, text = message, parse_mode=telegram.ParseMode.MARKDOWN)
+
+def reboot_cmd(bot, update):
+    chat_id = update.message.chat_id
+    if chat_id == ADMIN or chat_id == ADMINGROUP:
+        os.system('reboot')
+        bot.sendMessage(chat_id = chat_id, text = "Rebooted :)")
+    else:
+        bot.sendMessage(chat_id = chat_id, text = "You're not allowed :)")
