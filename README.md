@@ -1,1 +1,1 @@
-# Telegram-VPSBot
+# Telegram-VPS-Bot
