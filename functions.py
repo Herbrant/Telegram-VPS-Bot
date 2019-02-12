@@ -21,6 +21,11 @@ adminconf = open('config/admin.conf', 'r').read()
 adminconf = adminconf.replace("\n", "")
 ADMIN = int(adminconf)
 
+#Admingroup chatid
+adminconf = open('config/admingroup.conf', 'r').read()
+adminconf = adminconf.replace("\n", "")
+ADMINGROUP = int(adminconf)
+
 def bytes2human(n):
     symbols = ('K', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y')
     prefix = {}
@@ -65,7 +70,7 @@ def print_memory(nt):
 
 def info_cmd(bot, update):
     chat_id = update.message.chat_id
-    if chat_id == ADMIN:
+    if chat_id == ADMIN or chat_id == ADMINGROUP:
         info = "*----VPS INFO----*\n\n"
         
         #CPU
@@ -84,7 +89,7 @@ def info_cmd(bot, update):
         #DISK
         #disk = '*--DISK--*\n' + str(disk_info()) + "\n"
         message = info + cpu + ram + swap
-        bot.sendMessage(chat_id = ADMIN, text = message,  parse_mode=telegram.ParseMode.MARKDOWN)
+        bot.sendMessage(chat_id = chat_id, text = message,  parse_mode=telegram.ParseMode.MARKDOWN)
     else:
         message = "You're not allowed :)"
         bot.sendMessage(chat_id = chat_id, text = message,  parse_mode=telegram.ParseMode.MARKDOWN)
@@ -95,8 +100,10 @@ def alert_cmd(bot, update):
     if cpuval > 80.0:
         message = "*ALERT CPU USAGE!*\n" + "Percent:\t" + str(cpuval) + "%"
         bot.sendMessage(chat_id = ADMIN, text = message, parse_mode=telegram.ParseMode.MARKDOWN)
+        bot.sendMessage(chat_id = ADMINGROUP, text = message, parse_mode=telegram.ParseMode.MARKDOWN)
     
     ramval = psutil.virtual_memory()[2]
     if ramval > 75.0:
         message = "*ALERT RAM USAGE!*\n" + "Percent:\t" + str(ramval) + "%"
         bot.sendMessage(chat_id = ADMIN, text = message, parse_mode=telegram.ParseMode.MARKDOWN)
+        bot.sendMessage(chat_id = ADMINGROUP, text = message, parse_mode=telegram.ParseMode.MARKDOWN)
