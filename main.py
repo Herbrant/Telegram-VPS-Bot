@@ -9,11 +9,11 @@ def main():
 
 	dp.add_handler(CommandHandler('info', info_cmd))
 	dp.add_handler(CommandHandler('reboot', reboot_cmd))
-	
+
 	#JobQueue
 	j = updater.job_queue
 
-	j.run_repeating(alert_cmd, interval= 30, first= 0)
+	j.run_repeating(alert_cmd, interval= 30, first= 10)
 	
 
 	updater.start_polling()

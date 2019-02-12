@@ -92,7 +92,7 @@ def alert_cmd(bot, update):
 def reboot_cmd(bot, update):
     chat_id = update.message.chat_id
     if chat_id == ADMIN or chat_id == ADMINGROUP:
-        os.system('reboot')
         bot.sendMessage(chat_id = chat_id, text = "Rebooted :)")
+        os.system('reboot')
     else:
         bot.sendMessage(chat_id = chat_id, text = "You're not allowed :)")
