@@ -97,7 +97,7 @@ def reboot_cmd(bot, update):
     else:
         bot.sendMessage(chat_id = chat_id, text = "You're not allowed :)")
 
-def restart_service(bot, update, args):
+def restart_service_cmd(bot, update, args):
     chat_id = update.message.chat_id
     if chat_id == ADMIN or chat_id == ADMINGROUP:
         for service in args:
