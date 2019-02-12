@@ -96,3 +96,11 @@ def reboot_cmd(bot, update):
         os.system('reboot')
     else:
         bot.sendMessage(chat_id = chat_id, text = "You're not allowed :)")
+
+def restart_service(bot, update, args):
+    chat_id = update.message.chat_id
+    if chat_id == ADMIN or chat_id == ADMINGROUP:
+        for service in args:
+            os.system('service %s restart') %service
+            message = "Service %s restarted :)" %service 
+            bot.sendMessage(chat_id = chat_id, text = message)
