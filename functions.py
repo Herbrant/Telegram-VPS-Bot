@@ -19,7 +19,7 @@ TOKEN = tokenconf
 #Admin chatid
 adminconf = open('config/admin.conf', 'r').read()
 adminconf = adminconf.replace("\n", "")
-ADMIN = adminconf
+ADMIN = int(adminconf)
 
 def bytes2human(n):
     symbols = ('K', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y')
@@ -68,7 +68,8 @@ def disk_info():
     return disk
 
 def info_cmd(bot, update):
-    if(update.message.chat_id == ADMIN):
+    chat_id = update.message.chat_id
+    if chat_id == ADMIN:
         info = "*----VPS INFO----*\n\n"
         
         #CPU
@@ -87,10 +88,10 @@ def info_cmd(bot, update):
         #DISK
         disk = '*--DISK--*\n' + str(disk_info()) + "\n"
         message = info + cpu + ram + swap + disk
-        bot.sendMessage(chat_id = update.message.chat_id, text = message,  parse_mode=telegram.ParseMode.MARKDOWN)
+        bot.sendMessage(chat_id = ADMIN, text = message,  parse_mode=telegram.ParseMode.MARKDOWN)
     else:
         message = "You're not allowed :)"
-        bot.sendMessage(chat_id = update.message.chat_id, text = message,  parse_mode=telegram.ParseMode.MARKDOWN)
+        bot.sendMessage(chat_id = chat_id, text = message,  parse_mode=telegram.ParseMode.MARKDOWN)
 
 
 def alert_cmd(bot, update):
