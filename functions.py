@@ -46,26 +46,22 @@ def print_memory(nt):
         
     return memory
 
-def disk_info():
-    templ = "%-17s %8s %8s %8s %5s"
-    disk = templ % ("Device", "Total", "Used", "Free", "Use\n")
+# def disk_info():
+#     templ = "%-17s %8s %8s %8s %5s"
+#     disk = templ % ("Device", "Total", "Used", "Free", "Use\n")
 
-    for part in psutil.disk_partitions(all= False):
-        if os.name == 'nt':
-            if 'cdrom' in part.opts or part.fstype == '':
-                continue
-        usage = psutil.disk_usage(part.mountpoint)
+#     for part in psutil.disk_partitions(all= False):
+#         usage = psutil.disk_usage(part.mountpoint)
 
+#         disk += templ % (
+#                 part.device,
+#                 bytes2human(usage.total),
+#                 bytes2human(usage.used),
+#                 bytes2human(usage.free),
+#                 int(usage.percent)) + "%\n"
+#         disk = str(disk).replace("/dev", "")
     
-        disk += templ % (
-                part.device,
-                bytes2human(usage.total),
-                bytes2human(usage.used),
-                bytes2human(usage.free),
-                int(usage.percent)) + "%\n"
-        disk = str(disk).replace("/dev", "")
-    
-    return disk
+#     return disk
 
 def info_cmd(bot, update):
     chat_id = update.message.chat_id
@@ -86,8 +82,8 @@ def info_cmd(bot, update):
         swap = '*--SWAP--*\n' + print_memory(psutil.swap_memory()) + "\n"
 
         #DISK
-        disk = '*--DISK--*\n' + str(disk_info()) + "\n"
-        message = info + cpu + ram + swap + disk
+        #disk = '*--DISK--*\n' + str(disk_info()) + "\n"
+        message = info + cpu + ram + swap
         bot.sendMessage(chat_id = ADMIN, text = message,  parse_mode=telegram.ParseMode.MARKDOWN)
     else:
         message = "You're not allowed :)"
