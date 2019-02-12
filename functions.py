@@ -100,7 +100,6 @@ def reboot_cmd(bot, update):
 def restart_service_cmd(bot, update, args):
     chat_id = update.message.chat_id
     if chat_id == ADMIN or chat_id == ADMINGROUP:
-        for service in args:
-            os.system('service %s restart') %service
-            message = "Service %s restarted :)" %service 
-            bot.sendMessage(chat_id = chat_id, text = message)
+        os.system('service %s restart') %args[0]
+        message = "Service %s restarted :)" %args[0] 
+        bot.sendMessage(chat_id = chat_id, text = message)
