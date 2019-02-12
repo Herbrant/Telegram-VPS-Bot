@@ -74,7 +74,7 @@ def info_cmd(bot, update):
         freq = str(psutil.cpu_freq()).replace("scpufreq", '')
         cpu += "Frequencies:\t" + freq + "\n"
         cpu += "Stats:\t" + str(psutil.cpu_stats()).replace("scpustats", "") + "\n"
-        cpu += "Cores:\t" + str(psutil.cpu_count()) + "\n"
+        cpu += "Cores:\t" + str(psutil.cpu_count()) + "\n\n"
         
         #RAM
         ram = '*--RAM--*\n' + print_memory(psutil.virtual_memory()) + "\n"
