@@ -68,25 +68,29 @@ def disk_info():
     return disk
 
 def info_cmd(bot, update):
-    info = "*----VPS INFO----*\n\n"
-    
-    #CPU
-    cpu = "*--CPU--*\n"
-    cpu += "Percent:\t" + str(psutil.cpu_percent()) + "%\n"
-    freq = str(psutil.cpu_freq()).replace("scpufreq", '')
-    cpu += "Frequencies:\t" + freq + "\n"
-    cpu += "Stats:\t" + str(psutil.cpu_stats()).replace("scpustats", "") + "\n"
-    cpu += "Cores:\t" + str(psutil.cpu_count()) + "\n"
-    
-    #RAM
-    ram = '*--RAM--*\n' + print_memory(psutil.virtual_memory()) + "\n"
-    #SWAP
-    swap = '*--SWAP--*\n' + print_memory(psutil.swap_memory()) + "\n"
+    if(update.message.chat_id == ADMIN):
+        info = "*----VPS INFO----*\n\n"
+        
+        #CPU
+        cpu = "*--CPU--*\n"
+        cpu += "Percent:\t" + str(psutil.cpu_percent()) + "%\n"
+        freq = str(psutil.cpu_freq()).replace("scpufreq", '')
+        cpu += "Frequencies:\t" + freq + "\n"
+        cpu += "Stats:\t" + str(psutil.cpu_stats()).replace("scpustats", "") + "\n"
+        cpu += "Cores:\t" + str(psutil.cpu_count()) + "\n"
+        
+        #RAM
+        ram = '*--RAM--*\n' + print_memory(psutil.virtual_memory()) + "\n"
+        #SWAP
+        swap = '*--SWAP--*\n' + print_memory(psutil.swap_memory()) + "\n"
 
-    #DISK
-    disk = '*--DISK--*\n' + str(disk_info()) + "\n"
-    message = info + cpu + ram + swap + disk
-    bot.sendMessage(chat_id = update.message.chat_id, text = message,  parse_mode=telegram.ParseMode.MARKDOWN)
+        #DISK
+        disk = '*--DISK--*\n' + str(disk_info()) + "\n"
+        message = info + cpu + ram + swap + disk
+        bot.sendMessage(chat_id = update.message.chat_id, text = message,  parse_mode=telegram.ParseMode.MARKDOWN)
+    else:
+        message = "You're not allowed :)"
+        bot.sendMessage(chat_id = update.message.chat_id, text = message,  parse_mode=telegram.ParseMode.MARKDOWN)
 
 
 def alert_cmd(bot, update):
@@ -96,6 +100,6 @@ def alert_cmd(bot, update):
         bot.sendMessage(chat_id = ADMIN, text = message, parse_mode=telegram.ParseMode.MARKDOWN)
     
     ramval = psutil.virtual_memory()[2]
-    if ramval > 65.0:
+    if ramval > 75.0:
         message = "*ALERT RAM USAGE!*\n" + "Percent:\t" + str(ramval) + "%"
         bot.sendMessage(chat_id = ADMIN, text = message, parse_mode=telegram.ParseMode.MARKDOWN)
