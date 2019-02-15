@@ -23,9 +23,9 @@ If you want to test the bot by creating your personal istance, follow this steps
 
 #### How to use
 
-Add the API TOKEN in /config/token.conf
-Add the admin chatid in /config/admin.conf
-Add the admingroup chatid in /config/admingroup.conf
+* Add the API TOKEN in /config/token.conf
+* Add the admin chatid in /config/admin.conf
+* Add the admingroup chatid in /config/admingroup.conf
 
 Run from shell:
 ```
