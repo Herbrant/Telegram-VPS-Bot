@@ -1,7 +1,7 @@
 # Telegram-VPS-Bot
 
 **Telegram-VPS-Bot** is  a Telegram bot that make easy to control a VPS.
----
+
 
 ### Setting up a local istance
 If you want to test the bot by creating your personal istance, follow this steps:
