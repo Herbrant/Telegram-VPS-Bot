@@ -10,11 +10,10 @@ def main():
 	dp.add_handler(CommandHandler('info', info_cmd))
 	dp.add_handler(CommandHandler('reboot', reboot_cmd))
 	dp.add_handler(CommandHandler('restart_service', restart_service_cmd, pass_args=True))
-
 	#JobQueue
 	j = updater.job_queue
 
-	j.run_repeating(alert_cmd, interval= 30, first= 10)
+	j.run_repeating(alert_cmd, interval= 3600, first= 10)
 	
 
 	updater.start_polling()
