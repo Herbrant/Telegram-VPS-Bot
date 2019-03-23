@@ -13,7 +13,7 @@ def main():
 	#JobQueue
 	j = updater.job_queue
 
-	j.run_repeating(alert_cmd, interval= 3600, first= 10)
+	j.run_repeating(alert_cmd, interval= 7200, first= 10)
 	
 
 	updater.start_polling()

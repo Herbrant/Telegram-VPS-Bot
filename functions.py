@@ -84,7 +84,7 @@ def alert_cmd(bot, update):
         bot.sendMessage(chat_id = ADMINGROUP, text = message, parse_mode=telegram.ParseMode.MARKDOWN)
     
     ramval = psutil.virtual_memory()[2]
-    if ramval > 75.0:
+    if ramval > 80.0:
         message = "*ALERT RAM USAGE!*\n" + "Percent:\t" + str(ramval) + "%"
         bot.sendMessage(chat_id = ADMIN, text = message, parse_mode=telegram.ParseMode.MARKDOWN)
         bot.sendMessage(chat_id = ADMINGROUP, text = message, parse_mode=telegram.ParseMode.MARKDOWN)
