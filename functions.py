@@ -103,3 +103,14 @@ def restart_service_cmd(bot, update, args):
         os.system(('service %s restart' %args[0]))
         message = "Service %s restarted :)" %args[0]  
         bot.sendMessage(chat_id = chat_id, text = message)
+
+def update_system_cmd(bot, update):
+    chat_id = update.message.chat_id
+    message = ""
+    if chat_id == ADMIN or chat_id == ADMINGROUP:
+        os.system('apt update && apt -y upgrade')
+        message = "Your system will be updated :)"
+    else:
+        message = "You're no allowed :)"
+    
+    bot.sendMessage(chat_id = chat_id, text = message)
