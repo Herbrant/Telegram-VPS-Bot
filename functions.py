@@ -109,7 +109,7 @@ def upgrade_cmd(bot, update):
     message = ""
     if chat_id == ADMIN or chat_id == ADMINGROUP:
         os.system('apt update && apt -y upgrade')
-        message = "Your system will be updated :)"
+        message = "System updated updated :)"
     else:
         message = "You're no allowed :)"
     
