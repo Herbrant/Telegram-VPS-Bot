@@ -10,7 +10,7 @@ def main():
 	dp.add_handler(CommandHandler('info', info_cmd))
 	dp.add_handler(CommandHandler('reboot', reboot_cmd))
 	dp.add_handler(CommandHandler('restart_service', restart_service_cmd, pass_args=True))
-	dp.add_handler(CommandHandler('sys_update', update_system_cmd))
+	dp.add_handler(CommandHandler('upgrade'), upgrade_cmd)
 	#JobQueue
 	j = updater.job_queue
 
